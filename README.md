@@ -8,66 +8,66 @@
 
 ## 🇧🇷 Português
 
-### DTCSync — agente Windows com autoatualização
+### DTCSync — agente Windows no posto
 
 **Role / Papel / Rol:** Desenvolvimento completo (desktop + web local + empacotamento)  
-**Stack:** `Python, HTML/CSS, PyInstaller, GitHub Releases, Windows services`
+**Stack:** `Python, HTML/CSS, PyInstaller, GitHub Releases, Windows services, PostgreSQL`
 
 #### Problem / Problema
-Clientes em campo precisavam de um agente Windows que se atualizasse sozinho, sem instalação manual a cada release, e com configuração simples via navegador.
+Cada posto tem PostgreSQL próprio e módulos contratados diferentes. Sem um agente local, a matriz não monitora o posto, não cria roles com segurança e não aplica só o que foi liberado.
 
 #### Solution / Solução / Solución
-Construí um executável Python com verificação de versão via GitHub Releases, troca segura do binário e reinício automático. Incluí painel web local para onboarding do cliente e rotação de logs.
+Agente Windows (`ConfigServer.ini` + painel `localhost:9010`) com heartbeat/watchdog como serviço, autoatualização via GitHub, sync de módulos (Dashboard, PontoBR, Rodoil, relatórios etc.), grants no Postgres do cliente e envio de ocorrências para a API central.
 
 #### Highlights
+- Configuração local (INI + web) — banco nunca vem da API
+- Watchdog / serviço Windows e multi-instância por porta
+- Sync condicionado aos módulos contratados
 - Autoatualização a partir de releases
-- Múltiplas instâncias no mesmo PC (portas distintas)
-- Painel web local de configuração
-- Empacotamento Windows (exe)
 
 
 ---
 
 ## 🇬🇧 English
 
-### DTCSync — Windows agent with auto-update
+### DTCSync — on-site Windows agent
 
 **Role / Papel / Rol:** Full development (desktop + local web + packaging)  
-**Stack:** `Python, HTML/CSS, PyInstaller, GitHub Releases, Windows services`
+**Stack:** `Python, HTML/CSS, PyInstaller, GitHub Releases, Windows services, PostgreSQL`
 
 #### Problem / Problema
-Field customers needed a Windows agent that could update itself without manual installs, with simple browser-based setup.
+Each site has its own PostgreSQL and licensed modules. Without a local agent, HQ cannot monitor the site, create DB roles safely, or apply only what was contracted.
 
 #### Solution / Solução / Solución
-I built a Python executable that checks GitHub Releases, safely replaces the binary, and restarts. A local web panel handles client onboarding and log rotation.
+A Windows agent (`ConfigServer.ini` + `localhost:9010` panel) with heartbeat/watchdog as a service, GitHub auto-update, module sync (Dashboard, PontoBR, Rodoil, reports, etc.), Postgres grants on the customer DB and occurrence push to the central API.
 
 #### Highlights
+- Local config (INI + web) — DB never comes from the API
+- Watchdog / Windows service and multi-instance by port
+- Sync gated by contracted modules
 - Auto-update from releases
-- Multiple instances on one PC (different ports)
-- Local web configuration panel
-- Windows packaging (exe)
 
 
 ---
 
 ## 🇪🇸 Español
 
-### DTCSync — agente Windows con autoactualización
+### DTCSync — agente Windows en el puesto
 
 **Role / Papel / Rol:** Desarrollo completo (desktop + web local + empaquetado)  
-**Stack:** `Python, HTML/CSS, PyInstaller, GitHub Releases, Windows services`
+**Stack:** `Python, HTML/CSS, PyInstaller, GitHub Releases, Windows services, PostgreSQL`
 
 #### Problem / Problema
-Los clientes en campo necesitaban un agente Windows que se actualizara solo, sin instalación manual, y con configuración simple por navegador.
+Cada cliente tiene su PostgreSQL y módulos contratados. Sin agente local, la matriz no monitorea, no crea roles con seguridad ni aplica solo lo liberado.
 
 #### Solution / Solução / Solución
-Construí un ejecutable Python que consulta GitHub Releases, reemplaza el binario de forma segura y reinicia. Un panel web local cubre el onboarding y la rotación de logs.
+Agente Windows (`ConfigServer.ini` + panel `localhost:9010`) con heartbeat/watchdog como servicio, autoactualización vía GitHub, sync de módulos, grants en Postgres del cliente y envío de ocurrencias a la API central.
 
 #### Highlights
+- Configuración local (INI + web)
+- Watchdog / servicio Windows y multi-instancia
+- Sync según módulos contratados
 - Autoactualización desde releases
-- Varias instancias en el mismo PC
-- Panel web local de configuración
-- Empaquetado Windows (exe)
 
 
 ---
@@ -75,5 +75,6 @@ Construí un ejecutable Python que consulta GitHub Releases, reemplaza el binari
 ## Notes / Observações / Notas
 
 - Author: **Douglas Francisco Bonfim**
-- Related private implementation (not public): `dtcsync`
+- Related private implementation (not public): `dtcsync` / `DTCSync`
+- Companion cases: `dtcsync-server`, `dtcsyncclient`, `dtcsyncandroid`
 - No credentials, customer data, hostnames, or proprietary payloads are included in this document.
